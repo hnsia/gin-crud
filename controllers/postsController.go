@@ -54,3 +54,31 @@ func PostsShow(c *gin.Context) {
 		"post": post,
 	})
 }
+
+func PostsUpdate(c *gin.Context) {
+	// Get id off url
+	id := c.Param("id")
+
+	// Get data off req body
+	var body struct {
+		Title string
+		Body  string
+	}
+
+	c.Bind(&body)
+
+	// Find the post were updating
+	var post models.Post
+	initializers.DB.First(&post, id)
+
+	// Update it
+	initializers.DB.Model(&post).Updates(models.Post{
+		Title: body.Title,
+		Body:  body.Body,
+	})
+
+	// Respond with it
+	c.JSON(200, gin.H{
+		"post": post,
+	})
+}
