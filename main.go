@@ -20,5 +20,7 @@ func main() {
 	router.GET("/posts", controllers.PostsIndex)
 	router.GET("/posts/:id", controllers.PostsShow)
 
+	router.DELETE("/posts/:id", controllers.PostsDelete)
+
 	router.Run() // listen and serve on 0.0.0.0:8080 or chosen PORT number
 }
